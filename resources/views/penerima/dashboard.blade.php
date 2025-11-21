@@ -3,7 +3,7 @@
 @section('sidebar')
 <ul class="list-group">
     <a href="/penerima/dashboard" class="list-group-item">Dashboard</a>
-    <a href="/penerima/permintaan" class="list-group-item">Permintaan Barang</a>
+    <a href={{ route('penerima.requests.index') }} class="list-group-item">Permintaan Barang</a>
 </ul>
 @endsection
 

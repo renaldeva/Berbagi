@@ -3,8 +3,8 @@
 @section('sidebar')
 <ul class="list-group">
     <a href="/admin/dashboard" class="list-group-item">Dashboard</a>
-    <a href="/admin/barang" class="list-group-item">Kelola Barang</a>
-    <a href="/admin/permintaan" class="list-group-item">Kelola Permintaan</a>
+    <a href="{{ route('admin.items.index') }}" class="list-group-item">Kelola Barang</a>
+    <a href="{{ route('admin.requests.index') }}" class="list-group-item">Kelola Permintaan</a>
 </ul>
 @endsection
 
