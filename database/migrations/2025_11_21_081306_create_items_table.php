@@ -15,10 +15,16 @@ return new class extends Migration {
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
             $table->enum('status', ['menunggu','tersedia','diproses','selesai'])->default('menunggu');
-            $table->foreignId('id_donatur')->constrained('users')->onDelete('cascade');
+
+            // user_id digunakan karena role sudah admin/user
+            $table->foreignId('user_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
+
     public function down(): void
     {
         Schema::dropIfExists('items');

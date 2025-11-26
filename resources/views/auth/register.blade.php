@@ -16,22 +16,6 @@
             align-items: center;
             justify-content: center;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
-
-        /* BACKGROUND ANIMATION */
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            animation: floatUp 10s infinite ease-in;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.7); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-20vh) scale(1.3); opacity: 0; }
         }
 
         .card-register {
@@ -40,12 +24,6 @@
             background: #ffffffee;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            animation: fadeIn 0.7s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .title {
@@ -70,20 +48,9 @@
             font-weight: 600;
             color: #5a0080;
         }
-
-        select, input {
-            border-radius: 10px !important;
-        }
     </style>
 </head>
 <body>
-
-    <!-- ANIMATED BACKGROUND BUBBLES -->
-    <div class="bubble" style="width:90px; height:90px; left:10%; animation-duration:13s;"></div>
-    <div class="bubble" style="width:60px; height:60px; left:40%; animation-duration:10s;"></div>
-    <div class="bubble" style="width:120px; height:120px; left:70%; animation-duration:15s;"></div>
-    <div class="bubble" style="width:75px; height:75px; left:85%; animation-duration:11s;"></div>
-    <div class="bubble" style="width:50px; height:50px; left:25%; animation-duration:9s;"></div>
 
     <div class="card card-register p-4">
         <h3 class="text-center title mb-4">Register</h3>
@@ -104,15 +71,6 @@
             <div class="mb-3">
                 <label>Password</label>
                 <input type="password" name="password" required class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label>Role</label>
-                <select name="role" class="form-control">
-                    <option value="admin">Admin</option>
-                    <option value="donator">Donator</option>
-                    <option value="penerima">Penerima</option>
-                </select>
             </div>
 
             <button class="btn btn-purple-soft w-100">Register</button>
