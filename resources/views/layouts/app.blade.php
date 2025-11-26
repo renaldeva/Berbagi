@@ -123,7 +123,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-dark p-3">
         <a class="navbar-brand text-white" href="#">
-            <i class="fas fa-hand-holding-heart"></i> Aplikasi Berbagi
+            <i class="fas fa-hand-holding-heart"></i> Berbagi
         </a>
 
         <form action="{{ route('logout') }}" method="POST" class="m-0">

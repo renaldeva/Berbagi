@@ -23,9 +23,13 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $role = auth()->user()->role;
 
-            if ($role === 'admin') return redirect('/admin/dashboard');
-            if ($role === 'donator') return redirect('/donator/dashboard');
-            if ($role === 'penerima') return redirect('/penerima/dashboard');
+            if ($role === 'admin') {
+                return redirect('/admin/dashboard');
+            }
+
+            if ($role === 'user') {
+                return redirect('/user/dashboard');
+            }
 
             return abort(403, 'Role tidak dikenal');
         }
@@ -43,18 +47,18 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'role' => 'required|in:admin,donator,penerima'
+            'password' => 'required|min:6'
         ]);
 
+        // Default role = user
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role,
+            'role' => 'user', 
         ]);
 
-        return redirect('/login')->with('success', 'Akun berhasil dibuat');
+        return redirect('/login')->with('success', 'Akun berhasil dibuat!');
     }
 
     public function logout()
