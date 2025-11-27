@@ -10,44 +10,69 @@ use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
+    // =============================
+    // LIST DATA USER
+    // =============================
     public function index()
     {
-        // Tampilkan semua item milik user yang login
-        $items = Item::where('user_id', auth()->id())->paginate(10);
+        $items = Item::where('user_id', auth()->id())->paginate(9);
         return view('user.items.index', compact('items'));
     }
 
+    // =============================
+    // FORM TAMBAH
+    // =============================
     public function create()
     {
         $categories = Category::all();
         return view('user.items.create', compact('categories'));
     }
 
-    public function store(Request $req)
+    // =============================
+    // PROSES TAMBAH BARANG
+    // =============================
+    public function store(Request $request)
     {
-        $req->validate([
+        $request->validate([
             'nama_barang' => 'required',
-            'kategori' => 'required',
+            'deskripsi' => 'required',
             'kondisi' => 'required',
-            'foto' => 'nullable|image|max:2048'
+            'category_id' => 'required',   // wajib
+            'foto' => 'nullable|image|max:3072'
         ]);
 
-        $data = $req->only(['nama_barang', 'kategori', 'kondisi', 'deskripsi']);
-        $data['user_id'] = auth()->id(); // default user
+        $item = new Item();
+        $item->nama_barang = $request->nama_barang;
+        $item->deskripsi = $request->deskripsi;
+        $item->kondisi = $request->kondisi;
+        $item->category_id = $request->category_id;
+        $item->user_id = auth()->id();    // wajib → memperbaiki error not null
 
-        // Upload foto
-        if ($req->hasFile('foto')) {
-            $file = $req->file('foto');
-            $name = time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/items', $name);
-            $data['foto'] = 'storage/items/' . $name;
+        // upload foto
+        if ($request->hasFile('foto')) {
+            $item->foto = $request->file('foto')->store('items', 'public');
         }
 
-        Item::create($data);
+        $item->status = 'pending';
+        $item->save();
 
-        return redirect()->route('user.items.index')->with('success', 'Barang berhasil disimpan');
+        return redirect()->back()->with('success', 'Barang berhasil ditambahkan!');
     }
 
+    // =============================
+    // DETAIL ITEM USER
+    // =============================
+    public function show($id)
+    {
+        $item = Item::findOrFail($id);
+        $this->authorizeOwnership($item);
+
+        return view('user.items.show', compact('item'));
+    }
+
+    // =============================
+    // FORM EDIT
+    // =============================
     public function edit($id)
     {
         $item = Item::findOrFail($id);
@@ -57,6 +82,9 @@ class ItemController extends Controller
         return view('user.items.edit', compact('item', 'categories'));
     }
 
+    // =============================
+    // PROSES UPDATE BARANG
+    // =============================
     public function update(Request $req, $id)
     {
         $item = Item::findOrFail($id);
@@ -64,25 +92,28 @@ class ItemController extends Controller
 
         $req->validate([
             'nama_barang' => 'required',
-            'kategori' => 'required',
+            'category_id' => 'required',
             'kondisi' => 'required',
-            'foto' => 'nullable|image|max:2048'
+            'deskripsi' => 'nullable',
+            'foto' => 'nullable|image|max:3072'
         ]);
 
-        $data = $req->only(['nama_barang', 'kategori', 'kondisi', 'deskripsi']);
+        $data = $req->only(['nama_barang', 'category_id', 'kondisi', 'deskripsi']);
 
         if ($req->hasFile('foto')) {
-            $file = $req->file('foto');
-            $name = time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/items', $name);
-            $data['foto'] = 'storage/items/' . $name;
+            $name = time() . '_' . Str::random(6) . '.' . $req->file('foto')->getClientOriginalExtension();
+            $req->file('foto')->storeAs('public/items', $name);
+            $data['foto'] = 'items/' . $name;
         }
 
         $item->update($data);
 
-        return redirect()->route('user.items.index')->with('success', 'Barang berhasil diperbarui');
+        return redirect()->route('user.dashboard')->with('success', 'Barang berhasil diperbarui');
     }
 
+    // =============================
+    // DELETE BARANG
+    // =============================
     public function destroy($id)
     {
         $item = Item::findOrFail($id);
@@ -90,13 +121,16 @@ class ItemController extends Controller
 
         $item->delete();
 
-        return back()->with('success', 'Barang berhasil dihapus');
+        return redirect()->route('user.dashboard')->with('success', 'Barang berhasil dihapus');
     }
 
+    // =============================
+    // CEK PEMILIK
+    // =============================
     private function authorizeOwnership($item)
     {
         if ($item->user_id != auth()->id()) {
-            abort(403, 'Anda tidak memiliki akses ke item ini');
+            abort(403, 'Anda tidak memiliki akses');
         }
     }
 }

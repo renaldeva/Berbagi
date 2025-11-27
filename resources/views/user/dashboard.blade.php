@@ -3,43 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DonasiKu – Marketplace Donasi</title>
+    <title>Berbagi</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            background: #f5f7fa;
+            background: #f6f4ff;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Navbar */
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: white;
+            border-bottom: 3px solid #e6d9ff;
+        }
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            color: #6a0dad !important;
         }
 
         .search-box {
-            border-radius: 50px;
-            background: #f0f0f0;
-            padding-left: 15px;
+            border-radius: 40px;
+            background: #f0e8ff;
+            border: 1px solid #d8c7ff;
+            padding-left: 18px;
+            transition: 0.3s ease;
+        }
+        .search-box:focus {
+            background: #fff;
+            border-color: #9c5aff;
+            box-shadow: 0 0 8px rgba(155, 90, 255, 0.3);
         }
 
-        /* Card Produk */
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #6a0dad, #8a2be2);
+            border-radius: 15px;
+            padding: 35px;
+            color: white;
+            box-shadow: 0 6px 18px rgba(106, 0, 173, 0.25);
+        }
+
+        /* ===== PRODUCT CARD ===== */
         .product-card {
-            border-radius: 12px;
+            border-radius: 15px;
             transition: 0.25s ease-in-out;
             overflow: hidden;
+            border: 1px solid #e7dbff;
         }
 
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(106, 0, 173, 0.15);
         }
 
         .product-img {
-            height: 180px;
+            height: 190px;
             object-fit: cover;
             width: 100%;
+        }
+
+        .btn-purple {
+            background: #7a21cf;
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-purple:hover {
+            background: #5c0ea8;
+            color: #fff;
+        }
+
+        /* Text Kategori */
+        .kategori-text {
+            background: #f0e5ff;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #6a0dad;
+            display: inline-block;
         }
     </style>
 
@@ -47,11 +95,11 @@
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container">
 
-        <a class="navbar-brand text-primary" href="#">
-            DonasiKu
+        <a class="navbar-brand text-white" href="#">
+            <i class="fas fa-hand-holding-heart"></i>  Berbagi
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navUser">
@@ -69,13 +117,13 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item me-3">
-                    <a href="{{ route('user.items.create') }}" class="nav-link fw-semibold">
+                    <a href="{{ route('user.items.index') }}" class="nav-link fw-semibold">
                         ➕ Tambah Barang
                     </a>
                 </li>
 
                 <li class="nav-item me-3">
-                    <a href="{{ route('user.requests.index') }}" class="nav-link fw-semibold position-relative">
+                    <a href="{{ route('user.inbox.index') }}" class="nav-link fw-semibold position-relative">
                         📥 Inbox
                         @php
                             $jumlahInbox = \App\Models\Request::where('user_id', auth()->id())->count();
@@ -110,19 +158,19 @@
 </nav>
 
 
-<!-- HERO (opsional, biar marketplace vibes) -->
+<!-- HERO -->
 <div class="container mt-4">
-    <div class="p-4 bg-primary text-white rounded shadow-sm">
+    <div class="hero">
         <h3 class="fw-bold">Selamat datang, {{ auth()->user()->name }} 👋</h3>
         <p>Temukan barang donasi atau mulai berbagi sekarang!</p>
     </div>
 </div>
 
 
-<!-- DAFTAR BARANG (Marketplace Grid) -->
+<!-- DAFTAR BARANG -->
 <div class="container mt-4">
 
-    <h4 class="fw-bold mb-3">Barang Donasi Terbaru</h4>
+    <h4 class="fw-bold mb-3 text-purple">Barang Donasi Terbaru</h4>
 
     <div class="row">
 
@@ -130,18 +178,21 @@
         <div class="col-md-4 mb-4">
             <div class="card product-card shadow-sm">
 
-                @if($item->gambar)
-                <img src="{{ asset('storage/' . $item->gambar) }}" class="product-img">
+                @if($item->foto)
+                    <img src="{{ asset('storage/' . $item->foto) }}" class="product-img">
                 @else
-                <img src="https://via.placeholder.com/300x180?text=No+Image" class="product-img">
+                    <img src="https://via.placeholder.com/300x180?text=No+Image" class="product-img">
                 @endif
 
                 <div class="card-body">
                     <h5 class="fw-bold">{{ $item->nama }}</h5>
-                    <p class="text-muted small">{{ $item->kategori }}</p>
 
-                    <a href="{{ route('user.items.show', $item->id) }}"
-                       class="btn btn-primary w-100 mt-2">
+                    <span class="kategori-text">
+                        {{ $item->category->nama_kategori ?? 'Tidak ada kategori' }}
+                    </span>                    
+
+                    <a href="{{ route('user.items.index', $item->id) }}"
+                       class="btn btn-purple w-100 mt-3">
                         Lihat Detail
                     </a>
                 </div>

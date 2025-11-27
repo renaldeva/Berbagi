@@ -23,34 +23,41 @@
 
                         <div class="mb-3">
                             <label class="form-label">Nama Barang</label>
-                            <input name="nama_barang" class="form-control" required>
+                            <input name="nama_barang" class="form-control" value="{{ old('nama_barang') }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kategori</label>
-                            <select name="kategori" class="form-control" required>
-                                @foreach($categories as $c)
-                                    <option value="{{ $c->nama_kategori }}">{{ $c->nama_kategori }}</option>
+                            <select name="category_id" class="form-control" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}"
+                                        {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->nama_kategori }}
+                                    </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>                        
 
                         <div class="mb-3">
                             <label class="form-label">Kondisi</label>
-                            <input name="kondisi" class="form-control" required>
+                            <input name="kondisi" class="form-control" value="{{ old('kondisi') }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control" rows="3"></textarea>
-                        </div>
+                            <p class="text-danger">Jangan lupa memberikan Nama dan No Telefon</p>
+                            <textarea name="deskripsi" class="form-control" rows="3">{{ old('deskripsi') }}</textarea>
+                        </div>                        
 
                         <div class="mb-3">
                             <label class="form-label">Foto</label>
                             <input type="file" name="foto" class="form-control">
                         </div>
 
-                        <button class="btn btn-primary w-100">Simpan</button>
+                        <!-- 🔥 Perbaikan: Simpan -> Kirim -->
+                        <button class="btn btn-primary w-100">Kirim</button>
+
                     </form>
 
                 </div>
