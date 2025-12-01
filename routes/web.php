@@ -16,6 +16,7 @@ use App\Http\Controllers\User\ItemController;
 use App\Http\Controllers\User\RequestController;
 use App\Http\Controllers\User\InboxController;
 use App\Http\Controllers\User\TipUserController;   // ← WAJIB
+use App\Http\Controllers\ProfileController;
 
 // AGREEMENTS
 use App\Http\Controllers\AgreementController;
@@ -107,6 +108,16 @@ Route::middleware(['auth', 'role:user'])
         Route::get('/tip', [TipUserController::class, 'index'])->name('tip.index');
         Route::get('/tip/create', [TipUserController::class, 'create'])->name('tip.create');
         Route::post('/tip', [TipUserController::class, 'store'])->name('tip.store');
+
+        Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
+
+        // Edit profil
+        Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+        Route::post('/profil/update', [ProfileController::class, 'update'])->name('profil.update');
+
+        // Ubah password
+        Route::get('/profil/password', [ProfileController::class, 'passwordForm'])->name('profil.password');
+        Route::post('/profil/password/update', [ProfileController::class, 'updatePassword'])->name('profil.password.update');
     });
 
 

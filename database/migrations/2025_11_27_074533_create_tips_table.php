@@ -11,20 +11,25 @@ return new class extends Migration
      */
     public function up()
     {
-    Schema::create('tips', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('user_id'); // pemberi tip
-        $table->integer('jumlah'); // jumlah tip
-        $table->text('pesan')->nullable();
-        $table->timestamps();
+        Schema::create('tips', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id'); // pemberi tip
+            $table->integer('jumlah'); // jumlah tip
+            $table->text('pesan')->nullable();
+            $table->string('bukti_transfer')->nullable(); // gambar bukti transfer
+            $table->timestamps();
 
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-    });
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+        });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::dropIfExists('tips');
     }
-
 };
