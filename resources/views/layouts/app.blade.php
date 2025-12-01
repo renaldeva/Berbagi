@@ -130,18 +130,24 @@
     <div class="container-fluid">
         <div class="row">
 
-            <!-- SIDEBAR -->
+            {{-- Jika halaman BUKAN profil, tampilkan sidebar --}}
+        @if (!request()->routeIs('user.profil.*'))
             <div class="col-3 sidebar">
                 <hr>
                 @yield('sidebar')
             </div>
 
-            <!-- CONTENT -->
             <div class="col-9 p-4 content-wrapper">
                 <h3 class="mb-3">{{ $title ?? 'Dashboard' }}</h3>
                 @yield('content')
             </div>
 
+        @else
+            <div class="col-12 p-4 content-wrapper">
+                <h3 class="mb-3">{{ $title ?? 'Profil' }}</h3>
+                @yield('content')
+            </div>
+        @endif
         </div>
     </div>
 
