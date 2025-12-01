@@ -1,105 +1,51 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+@extends('layouts.app')
 
-    <style>
-        body {
-            margin: 0;
-            background: #F4F1FF;
-            font-family: "Poppins", sans-serif;
-        }
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Ganti Password</div>
 
-        .header {
-            background: #6A4DFF;
-            padding: 45px 20px;
-            text-align: center;
-            color: white;
-        }
+                <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
 
-        .header h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-        }
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
 
-        .container {
-            max-width: 520px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-        }
+                    <form action="{{ route('user.profil.password.update') }}" method="POST">
+                        @csrf
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #333;
-        }
+                        <div class="mb-3">
+                            <label class="form-label">Password Lama</label>
+                            <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror" required>
+                            @error('current_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #CCC;
-            font-size: 15px;
-            margin-bottom: 18px;
-        }
+                        <div class="mb-3">
+                            <label class="form-label">Password Baru</label>
+                            <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" required>
+                            @error('new_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-        .btn-save {
-            width: 100%;
-            background: #6A4DFF;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+                        <div class="mb-3">
+                            <label class="form-label">Konfirmasi Password Baru</label>
+                            <input type="password" name="new_password_confirmation" class="form-control" required>
+                        </div>
 
-        .btn-back {
-            text-align: center;
-            display: block;
-            margin-top: 12px;
-            color: #6A4DFF;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="header">
-        <h2>Reset Password</h2>
+                        <button type="submit" class="btn btn-primary">Ubah Password</button>
+                        <a href="{{ route('user.profil.index') }}" class="btn btn-secondary">Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="container">
-
-        <form action="{{ route('user.profil.password') }}" method="POST">
-            @csrf
-
-            <label>Password Lama</label>
-            <input type="password" name="current_password">
-
-            <label>Password Baru</label>
-            <input type="password" name="password">
-
-            <label>Konfirmasi Password Baru</label>
-            <input type="password" name="password_confirmation">
-
-            <button class="btn-save">Update Password</button>
-        </form>
-
-        <a href="{{ route('user.profil') }}" class="btn-back">Kembali ke Profil</a>
-
-    </div>
-
-</body>
-</html>
+</div>
+@endsection

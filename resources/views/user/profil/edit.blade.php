@@ -1,102 +1,65 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profil</title>
+@extends('layouts.app')
 
-    <style>
-        body {
-            margin: 0;
-            background: #F4F1FF;
-            font-family: "Poppins", sans-serif;
-        }
+@section('content')
 
-        .header {
-            background: #6A4DFF;
-            padding: 45px 20px;
-            text-align: center;
-            color: white;
-        }
+<div class="container mt-4">
 
-        .header h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-        }
+    <a href="{{ route('user.profil.index') }}" class="btn btn-secondary mb-3">
+        <i class="fa fa-arrow-left"></i> Kembali
+    </a>
 
-        .container {
-            max-width: 520px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-        }
+    <div class="card p-4">
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #333;
-        }
+        <h4>Edit Profil</h4>
+        <hr>
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #CCC;
-            font-size: 15px;
-            margin-bottom: 18px;
-        }
+        <form action="{{ route('user.profil.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-        .btn-save {
-            width: 100%;
-            background: #6A4DFF;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: 600;
-        }
 
-        .btn-back {
-            text-align: center;
-            display: block;
-            margin-top: 12px;
-            color: #6A4DFF;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-    </style>
-</head>
+            <!-- Nama -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama Lengkap</label>
+                <input 
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    value="{{ old('name', $user->name) }}"
+                    required
+                >
+            </div>
 
-<body>
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ old('email', $user->email) }}"
+                    required
+                >
+            </div>
 
-    <div class="header">
-        <h2>Edit Profil</h2>
-    </div>
+            <!-- Foto -->
+            <div class="mb-3">
+                <label class="form-label">Foto Profil</label><br>
 
-    <div class="container">
+                <img 
+                    src="{{ $user->photo ? asset('uploads/profile/'.$user->photo) : 'https://ui-avatars.com/api/?name='.$user->name }}" 
+                    width="90"
+                    class="rounded mb-3"
+                >
 
-        <form action="{{ route('profil.update') }}" method="POST">
-            @csrf
+                <input type="file" name="photo" class="form-control">
+            </div>
 
-            <label>Nama</label>
-            <input type="text" name="name" value="{{ old('name', $user->name) }}">
-
-            <label>Email</label>
-            <input type="email" name="email" value="{{ old('email', $user->email) }}">
-
-            <button class="btn-save">Simpan Perubahan</button>
+            <button class="btn btn-primary">
+                <i class="fa fa-save"></i> Simpan Perubahan
+            </button>
         </form>
 
-        <a href="{{ route('profil') }}" class="btn-back">Kembali ke Profil</a>
-
     </div>
+</div>
 
-</body>
-</html>
+@endsection
