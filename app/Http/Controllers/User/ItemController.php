@@ -56,8 +56,8 @@ class ItemController extends Controller
         $item->status = 'pending';
         $item->save();
 
-        return redirect()->back()->with('success', 'Barang berhasil ditambahkan!');
-    }
+        return redirect()->route('user.items.index')->with('success', 'Barang berhasil ditambahkan!');
+}
 
     // =============================
     // DETAIL ITEM USER

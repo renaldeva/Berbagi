@@ -2,6 +2,8 @@
 
 @section('sidebar')
 @include('admin.sidebar')
+@endsection
+
 @section('content')
 
 <div class="alert alert-purple shadow-sm mt-2">
@@ -18,33 +20,33 @@
                     <span class="title">Total Barang</span>
                     <i class="fas fa-box-open icon"></i>
                 </div>
-                <p class="desc">12</p>
+                <p class="desc">{{ $totalBarang }}</p>
             </div>
         </div>
     </div>
 
-    {{-- Card Total Permintaan --}}
+    {{-- Card Total Category --}}
     <div class="col-md-4">
         <div class="card dashboard-card soft-purple">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="title">Total Permintaan</span>
-                    <i class="fas fa-file-alt icon"></i>
+                    <span class="title">Total Category</span>
+                    <i class="fas fa-tags icon"></i>
                 </div>
-                <p class="desc">5</p>
+                <p class="desc">{{ $totalCategory }}</p>
             </div>
         </div>
     </div>
 
-    {{-- Card Total Pengguna --}}
+    {{-- Card Total Tip --}}
     <div class="col-md-4">
         <div class="card dashboard-card dark-purple">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="title">Total Pengguna</span>
-                    <i class="fas fa-users icon"></i>
+                    <span class="title">Total Tip</span>
+                    <i class="fas fa-money-bill icon"></i>
                 </div>
-                <p class="desc">4</p>
+                <p class="desc">{{ $totalTip }}</p>
             </div>
         </div>
     </div>
@@ -52,7 +54,6 @@
 </div>
 
 <style>
-
     .alert-purple {
         background: #e8d3ff;
         color: #4B0082;
@@ -104,7 +105,6 @@
         transform: scale(1.04);
         box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.25);
     }
-
 </style>
 
 @endsection

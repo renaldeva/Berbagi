@@ -124,14 +124,7 @@
     <nav class="navbar navbar-dark p-3">
         <a class="navbar-brand text-white" href="#">
             <i class="fas fa-hand-holding-heart"></i> Berbagi
-        </a>
-
-        <form action="{{ route('logout') }}" method="POST" class="m-0">
-            @csrf
-            <button type="submit" class="logout-btn">
-                <i class="fa fa-sign-out-alt"></i> Logout
-            </button>
-        </form>   
+        </a>  
     </nav>
 
     <div class="container-fluid">
@@ -139,7 +132,6 @@
 
             <!-- SIDEBAR -->
             <div class="col-3 sidebar">
-                <h5>{{ auth()->user()->role }}</h5>
                 <hr>
                 @yield('sidebar')
             </div>

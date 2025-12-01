@@ -18,8 +18,8 @@
         </a>
 
         {{-- RIWAYAT BARANG --}}
-        <a href="{{ route('admin.history.index') }}" class="list-group-item sidebar-item">
-            <i class="fas fa-history"></i> Riwayat Barang
+        <a href="{{ route('admin.tip.index') }}" class="list-group-item sidebar-item">
+            <i class="fas fa-money-bill"></i> Data Tip
         </a>
 
         {{-- LOGOUT --}}

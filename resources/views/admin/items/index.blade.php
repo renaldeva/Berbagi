@@ -13,7 +13,7 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Nama Barang</th>
                     <th>Deskripsi</th>
                     <th>Kondisi</th>
