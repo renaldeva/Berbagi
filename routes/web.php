@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\AgreementController;
 
 // ADMIN
 use App\Http\Controllers\Admin\DashboardAdminController;
@@ -18,10 +20,6 @@ use App\Http\Controllers\User\InboxController;
 use App\Http\Controllers\User\TipUserController;
 use App\Http\Controllers\User\ProfileController;
 
-// AGREEMENTS
-use App\Http\Controllers\AgreementController;
-
-
 /*
 |--------------------------------------------------------------------------
 | DEFAULT REDIRECT
@@ -29,20 +27,29 @@ use App\Http\Controllers\AgreementController;
 */
 Route::get('/', fn() => redirect()->route('login'));
 
-
 /*
 |--------------------------------------------------------------------------
 | AUTH (GUEST ONLY)
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
+    // LOGIN
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 
+    // REGISTER
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
-});
 
+    // SEND OTP (untuk register)
+    Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('send.otp');
+
+    // FORGOT PASSWORD
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('forgot-password.show');
+    Route::post('/forgot-password/send-otp', [ForgotPasswordController::class, 'sendOtp'])->name('forgot.send.otp');
+    Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('forgot.reset.password');
+    Route::post('/forgot-password/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('forgot.verify.otp');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +59,6 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +73,6 @@ Route::get('/dashboard', function () {
         : redirect()->route('user.dashboard');
 })->middleware('auth');
 
-
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES
@@ -77,7 +82,6 @@ Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-
         Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard');
 
         Route::get('/items', [ItemAdminController::class, 'index'])->name('items.index');
@@ -91,7 +95,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/tip', [TipAdminController::class, 'index'])->name('tip.index');
     });
 
-
 /*
 |--------------------------------------------------------------------------
 | USER ROUTES
@@ -101,7 +104,6 @@ Route::middleware(['auth', 'role:user'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {
-
         Route::get('/dashboard', [DashboardUserController::class, 'index'])->name('dashboard');
 
         Route::resource('items', ItemController::class);
@@ -114,11 +116,7 @@ Route::middleware(['auth', 'role:user'])
         Route::get('/tip/create', [TipUserController::class, 'create'])->name('tip.create');
         Route::post('/tip', [TipUserController::class, 'store'])->name('tip.store');
 
-        /*
-        |--------------------------------------------------------------------------
-        | PROFILE USER (FIXED)
-        |--------------------------------------------------------------------------
-        */
+        // PROFILE USER
         Route::middleware('auth')->group(function () {
             Route::get('/profil', [ProfileController::class, 'index'])->name('profil.index');
             Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
@@ -128,7 +126,6 @@ Route::middleware(['auth', 'role:user'])
             Route::post('/profil/password/update', [ProfileController::class, 'updatePassword'])->name('profil.password.update');
         });
     });
-
 
 /*
 |--------------------------------------------------------------------------
