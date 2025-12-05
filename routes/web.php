@@ -29,22 +29,19 @@ Route::get('/', fn() => redirect()->route('login'));
 
 /*
 |--------------------------------------------------------------------------
-| AUTH (GUEST ONLY)
+| AUTH (GUEST)
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
-    // LOGIN
+
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 
-    // REGISTER
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 
-    // SEND OTP (untuk register)
     Route::post('/send-otp', [AuthController::class, 'sendOtp'])->name('send.otp');
 
-    // FORGOT PASSWORD
     Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('forgot-password.show');
     Route::post('/forgot-password/send-otp', [ForgotPasswordController::class, 'sendOtp'])->name('forgot.send.otp');
     Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('forgot.reset.password');
@@ -62,7 +59,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 
 /*
 |--------------------------------------------------------------------------
-| REDIRECT DASHBOARD BY ROLE
+| DASHBOARD REDIRECT
 |--------------------------------------------------------------------------
 */
 Route::get('/dashboard', function () {
@@ -75,35 +72,41 @@ Route::get('/dashboard', function () {
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN ROUTES
+| ADMIN
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
+
         Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('dashboard');
 
+        // ITEMS
         Route::get('/items', [ItemAdminController::class, 'index'])->name('items.index');
-        Route::post('/items/acc/{id}', [ItemAdminController::class, 'acc'])->name('items.acc');
-        Route::post('/items/reject/{id}', [ItemAdminController::class, 'reject'])->name('items.reject');
+        Route::post('/items/{id}/acc', [ItemAdminController::class, 'acc'])->name('items.acc');
+        Route::post('/items/{id}/reject', [ItemAdminController::class, 'reject'])->name('items.reject');
 
+        // HISTORY
         Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 
+        // CATEGORY
         Route::resource('categories', CategoryController::class);
 
+        // TIP
         Route::get('/tip', [TipAdminController::class, 'index'])->name('tip.index');
     });
 
 /*
 |--------------------------------------------------------------------------
-| USER ROUTES
+| USER
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:user'])
     ->prefix('user')
     ->name('user.')
     ->group(function () {
+
         Route::get('/dashboard', [DashboardUserController::class, 'index'])->name('dashboard');
 
         Route::resource('items', ItemController::class);
@@ -116,20 +119,18 @@ Route::middleware(['auth', 'role:user'])
         Route::get('/tip/create', [TipUserController::class, 'create'])->name('tip.create');
         Route::post('/tip', [TipUserController::class, 'store'])->name('tip.store');
 
-        // PROFILE USER
-        Route::middleware('auth')->group(function () {
-            Route::get('/profil', [ProfileController::class, 'index'])->name('profil.index');
-            Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
-            Route::post('/profil/update', [ProfileController::class, 'update'])->name('profil.update');
+        // PROFILE
+        Route::get('/profil', [ProfileController::class, 'index'])->name('profil.index');
+        Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+        Route::post('/profil/update', [ProfileController::class, 'update'])->name('profil.update');
 
-            Route::get('/profil/password', [ProfileController::class, 'password'])->name('profil.password');
-            Route::post('/profil/password/update', [ProfileController::class, 'updatePassword'])->name('profil.password.update');
-        });
+        Route::get('/profil/password', [ProfileController::class, 'password'])->name('profil.password');
+        Route::post('/profil/password/update', [ProfileController::class, 'updatePassword'])->name('profil.password.update');
     });
 
 /*
 |--------------------------------------------------------------------------
-| AGREEMENTS (ADMIN + USER)
+| AGREEMENTS
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
