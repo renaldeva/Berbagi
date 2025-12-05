@@ -173,6 +173,17 @@
                 <i class="fas fa-edit me-3"></i>Edit Barang
             </h3>
 
+            {{-- Tampilkan error validasi (jika ada) --}}
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('user.items.update', $item->id) }}" 
                   method="POST" 
                   enctype="multipart/form-data">
@@ -188,9 +199,38 @@
                            name="nama_barang" 
                            id="nama_barang"
                            class="form-control" 
-                           value="{{ $item->nama_barang }}" 
+                           value="{{ old('nama_barang', $item->nama_barang) }}" 
                            required
                            placeholder="Masukkan nama barang">
+                </div>
+
+                {{-- KATEGORI (DITAMBAHKAN) --}}
+                <div class="mb-4">
+                    <label for="category_id" class="form-label">
+                        <i class="fas fa-list me-2"></i>Kategori
+                    </label>
+                    <select name="category_id" id="category_id" class="form-control" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}"
+                                {{ old('category_id', $item->category_id) == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->nama ?? $cat->nama_kategori ?? 'Kategori' }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- KONDISI (DITAMBAHKAN) --}}
+                <div class="mb-4">
+                    <label for="kondisi" class="form-label">
+                        <i class="fas fa-star me-2"></i>Kondisi
+                    </label>
+                    <select name="kondisi" id="kondisi" class="form-control" required>
+                        <option value="">-- Pilih Kondisi --</option>
+                        <option value="baru" {{ old('kondisi', $item->kondisi) == 'baru' ? 'selected' : '' }}>Baru</option>
+                        <option value="bekas" {{ old('kondisi', $item->kondisi) == 'bekas' ? 'selected' : '' }}>Bekas</option>
+                        {{-- jika ada jenis kondisi lain, tambahkan di sini --}}
+                    </select>
                 </div>
 
                 <div class="mb-4">
@@ -202,7 +242,7 @@
                               class="form-control" 
                               rows="4" 
                               required
-                              placeholder="Masukkan deskripsi barang">{{ $item->deskripsi }}</textarea>
+                              placeholder="Masukkan deskripsi barang">{{ old('deskripsi', $item->deskripsi) }}</textarea>
                 </div>
 
                 <div class="mb-4">

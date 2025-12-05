@@ -358,9 +358,51 @@
                         <i class="fas fa-tag me-1"></i> {{ $item->category->nama_kategori ?? 'Tidak ada kategori' }}
                     </span>
                     <p class="card-text text-muted flex-grow-1">{{ Str::limit($item->deskripsi ?? 'Deskripsi tidak tersedia.', 80) }}</p>
-                    <a href="#" class="btn btn-purple mt-auto">
+                    <a href="#" class="btn btn-purple mt-auto" data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}">
                         <i class="fas fa-eye me-1"></i> Lihat Detail
-                    </a>
+                    </a>                                   
+                </div>
+            </div>
+        </div>
+        <!-- MODAL DETAIL -->
+        <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded-4 shadow-lg">
+                    <div class="modal-header" style="background: linear-gradient(135deg, #7a21cf, #9c5aff); color:white;">
+                        <h5 class="modal-title fw-semibold">
+                            <i class="fas fa-box-open me-2"></i> Detail Barang: {{ $item->nama_barang }}
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <!-- Foto -->
+                        <div class="text-center mb-4">
+                            <img src="{{ $item->foto ? asset('storage/' . $item->foto) : 'https://via.placeholder.com/600x350/6a0dad/ffffff?text=No+Image' }}"
+                                class="img-fluid rounded shadow"
+                                style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        <!-- Info -->
+                        <h5 class="fw-bold mb-3">{{ $item->nama_barang }}</h5>
+                        <p class="mb-2">
+                            <span class="badge bg-purple text-white px-3 py-2 rounded-pill">
+                                <i class="fas fa-tag me-1"></i>
+                                {{ $item->category->nama_kategori ?? 'Tidak ada kategori' }}
+                            </span>
+                        </p>
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-align-left me-2"></i>
+                            {{ $item->deskripsi ?? 'Deskripsi tidak tersedia.' }}
+                        </p>
+                        <p class="mb-2">
+                            <i class="fas fa-info-circle me-2 text-purple"></i>
+                            <strong>Kondisi:</strong> {{ $item->kondisi ?? 'Tidak ada informasi' }}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-1"></i> Tutup
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
