@@ -11,9 +11,10 @@
 
         .container-split { display: flex; min-height: 100vh; }
 
+        /* LEFT SIDE (Tetap) */
         .left-side {
             width: 50%;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             padding: 80px 60px;
             color: white;
             display: flex;
@@ -37,9 +38,10 @@
         .left-side h2 { font-size: 1.8rem; font-weight: 400; margin-bottom: 30px; }
         .left-side p { font-size: 1rem; line-height: 1.7; font-weight: 300; opacity: 0.95; }
 
+        /* RIGHT SIDE (Dekorasi Ungu) */
         .right-side {
             width: 50%;
-            background: #f5f5f5;
+            background: #f8f5ff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -49,14 +51,16 @@
         }
 
         .circle-decoration-1, .circle-decoration-2 { position: absolute; border-radius: 50%; }
-        .circle-decoration-1 { width: 250px; height: 250px; background: rgba(34,197,94,0.15); top: -100px; right: -100px; }
-        .circle-decoration-2 { width: 180px; height: 180px; background: rgba(34,197,94,0.1); top: 20px; right: 20px; }
+        .circle-decoration-1 { width: 250px; height: 250px; background: rgba(138,43,226,0.15); top: -100px; right: -100px; }
+        .circle-decoration-2 { width: 180px; height: 180px; background: rgba(138,43,226,0.1); top: 20px; right: 20px; }
 
         .login-card { width: 450px; max-width: 100%; position: relative; z-index: 2; }
         .login-card h3 { font-size: 2rem; font-weight: 600; color: #1f2937; margin-bottom: 8px; }
         .login-card .subtitle { color: #6b7280; font-size: 0.95rem; margin-bottom: 35px; }
 
-        .form-label { font-weight: 500; color: #374151; margin-bottom: 8px; font-size: 0.9rem; }
+        /* FORM */
+        .form-label { font-weight: 500; color: #4b0082; margin-bottom: 8px; font-size: 0.9rem; }
+
         .form-control {
             padding: 12px 16px;
             border: 1px solid #d1d5db;
@@ -64,26 +68,54 @@
             font-size: 0.95rem;
             transition: all 0.3s;
         }
-        .form-control:focus { border-color: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.1); outline: none; }
 
+        .form-control:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 3px rgba(138,43,226,0.2);
+            outline: none;
+        }
+
+        /* PASSWORD TOGGLE */
         .password-toggle { position: relative; }
         .password-toggle input { padding-right: 45px; }
-        .toggle-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6b7280; font-size: 1.1rem; }
+        .toggle-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #8a2be2; font-size: 1.1rem; }
 
+        /* BUTTON UNGU */
         .btn-login {
-            background: #22c55e; color: white; border: none; font-weight: 600; border-radius: 8px; padding: 13px;
-            font-size: 1rem; transition: all 0.3s; width: 100%; margin-top: 10px;
+            background: #6a0dad;
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
         }
-        .btn-login:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(34,197,94,0.3); }
+        .btn-login:hover {
+            background: #8a2be2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(106,13,173,0.3);
+        }
 
-        .forgot-password { color: #22c55e; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-        .forgot-password:hover { color: #16a34a; text-decoration: underline; }
+        /* LINK UNGU */
+        .forgot-password {
+            color: #6a0dad;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .forgot-password:hover { color: #8a2be2; text-decoration: underline; }
 
         .register-link { text-align: center; margin-top: 25px; color: #6b7280; font-size: 0.9rem; }
-        .register-link a { color: #22c55e; text-decoration: none; font-weight: 600; }
-        .register-link a:hover { color: #16a34a; text-decoration: underline; }
+        .register-link a { color: #6a0dad; text-decoration: none; font-weight: 600; }
+        .register-link a:hover { color: #8a2be2; text-decoration: underline; }
 
-        @media (max-width: 768px) { .container-split { flex-direction: column; } .left-side, .right-side { width: 100%; min-height: auto; } }
+        @media (max-width: 768px) {
+            .container-split { flex-direction: column; }
+            .left-side, .right-side { width: 100%; min-height: auto; }
+        }
     </style>
 </head>
 <body>

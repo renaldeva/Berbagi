@@ -74,7 +74,7 @@
 
         /* Title box dengan efek modern */
         .title-box {
-            background: linear-gradient(135deg, #7b2ff7 0%, #a259ff 100%);
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             padding: 30px;
             border-radius: 20px;
             color: white;
