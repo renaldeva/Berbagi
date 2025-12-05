@@ -41,10 +41,10 @@
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            color: #6b46ff;
+            color: #6b7280;
             font-weight: 600;
             font-size: 0.9rem;
-            border: 2px solid #6b46ff;
+            border: 2px solid #6a0dad;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -54,7 +54,7 @@
             z-index: 1000;
         }
         .btn-back:hover {
-            background: #6b46ff;
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             color: white;
             transform: translateY(-3px) translateX(-3px);
             box-shadow: 0 6px 20px rgba(107, 70, 255, 0.3);
@@ -62,7 +62,7 @@
 
         /* Hero section dengan efek canggih */
         .hero {
-            background: linear-gradient(135deg, #7b2ff7 0%, #9036ff 50%, #a259ff 100%);
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             padding: 120px 20px 80px;
             text-align: center;
             color: white;
@@ -134,7 +134,7 @@
 
         /* Kasih Tip Button dengan efek premium */
         .btn-tip {
-            background: linear-gradient(135deg, #4f46e5 0%, #6d5dfc 100%);
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             padding: 15px 40px;
             font-size: 1.2rem;
             border-radius: 30px;
@@ -164,7 +164,7 @@
             left: 100%;
         }
         .btn-tip:hover {
-            background: linear-gradient(135deg, #4338ca 0%, #5a4fff 100%);
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(102, 92, 255, 0.5);
         }

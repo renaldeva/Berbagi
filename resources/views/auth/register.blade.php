@@ -8,20 +8,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family: 'Poppins', sans-serif; min-height:100vh; overflow-x:hidden; }
 
         .container-split { display:flex; min-height:100vh; }
 
-        /* Left Side */
+        /* LEFT SECTION - Gradient Purple */
         .left-side {
             width:50%;
-            background:linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            background:linear-gradient(160deg, #6a0dad 0%, #8a2be2 40%, #a855f7 100%);
             padding:80px 60px;
             color:white;
             display:flex;
@@ -30,51 +28,113 @@
             position:relative;
             overflow:hidden;
         }
-        .left-side::before, .left-side::after { content:''; position:absolute; border-radius:50%; }
-        .left-side::before { width:400px; height:400px; background:rgba(255,255,255,0.1); top:-200px; right:-200px; }
-        .left-side::after { width:300px; height:300px; background:rgba(255,255,255,0.08); bottom:-150px; left:-150px; }
+        .left-side::before, .left-side::after {
+            content:''; position:absolute; border-radius:50%;
+        }
+        .left-side::before {
+            width:420px; height:420px;
+            background:rgba(255,255,255,0.08);
+            top:-200px; right:-200px;
+            filter:blur(3px);
+        }
+        .left-side::after {
+            width:300px; height:300px;
+            background:rgba(255,255,255,0.06);
+            bottom:-150px; left:-150px;
+        }
         .left-content { position:relative; z-index:2; max-width:500px; }
-        .left-side h1 { font-size:3.5rem; font-weight:700; margin-bottom:0; letter-spacing:1px; }
-        .divider-line { width:120px; height:3px; background:white; margin:15px 0 20px 0; }
-        .left-side h2 { font-size:1.8rem; font-weight:400; margin-bottom:30px; }
-        .left-side p { font-size:1rem; line-height:1.7; font-weight:300; opacity:0.95; }
+        .left-side h1 { font-size:3.4rem; font-weight:700; }
+        .divider-line {
+            width:130px; height:4px; background:white;
+            margin:15px 0 25px 0; border-radius:8px;
+        }
+        .left-side h2 { font-size:1.8rem; font-weight:400; margin-bottom:25px; }
 
-        /* Right Side */
+        /* RIGHT SECTION */
         .right-side {
             width:50%;
-            background:#f5f5f5;
-            display:flex;
-            align-items:center;
-            justify-content:center;
+            background:#faf6ff;
+            display:flex; justify-content:center; align-items:center;
             padding:40px;
             position:relative;
             overflow:hidden;
         }
-        .circle-decoration-1 { position:absolute; width:250px; height:250px; background:rgba(34,197,94,0.15); border-radius:50%; top:-100px; right:-100px; }
-        .circle-decoration-2 { position:absolute; width:180px; height:180px; background:rgba(34,197,94,0.1); border-radius:50%; top:20px; right:20px; }
+        .circle-decoration-1 {
+            position:absolute; width:250px; height:250px;
+            background:rgba(168,85,247,0.15);
+            border-radius:50%; top:-100px; right:-100px;
+        }
+        .circle-decoration-2 {
+            position:absolute; width:180px; height:180px;
+            background:rgba(168,85,247,0.1);
+            border-radius:50%; top:30px; right:20px;
+        }
 
-        .register-card { width:450px; max-width:100%; position:relative; z-index:2; }
-        .register-card h3 { font-size:2rem; font-weight:600; color:#1f2937; margin-bottom:8px; text-align:center; }
-        .register-card .subtitle { color:#6b7280; font-size:0.95rem; margin-bottom:35px; text-align:center; }
+        /* CARD */
+        .register-card {
+            width:450px; max-width:100%; padding:10px;
+            position:relative; z-index:2;
+        }
+        .register-card h3 {
+            font-size:2.2rem; font-weight:700;
+            color:#4b0082; text-align:center;
+        }
+        .subtitle {
+            text-align:center; font-size:0.95rem;
+            color:#6b6b7d; margin-bottom:30px;
+        }
 
-        .form-label { font-weight:500; color:#374151; margin-bottom:8px; font-size:0.9rem; }
-        .form-control { padding:12px 16px; border:1px solid #d1d5db; border-radius:8px; font-size:0.95rem; transition:all 0.3s; }
-        .form-control:focus { border-color:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,0.1); outline:none; }
+        /* INPUT & LABEL */
+        .form-label { font-weight:500; color:#4b0082; }
+        .form-control {
+            padding:12px 16px; border-radius:10px;
+            border:1.5px solid #d1c4e9;
+            font-size:0.95rem;
+            transition:all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color:#a855f7;
+            box-shadow:0 0 0 3px rgba(168,85,247,0.18);
+        }
 
-        .input-group { position:relative; }
-        .input-group .form-control { padding:12px 50px 12px 16px; }
-        .input-group .btn { position:absolute; right:0; top:0; height:100%; border:1px solid #d1d5db; border-left:none; background:white; color:#6b7280; border-radius:0 8px 8px 0; padding:0 15px; transition:all 0.3s; z-index:10; }
-        .input-group .btn:hover { background:#f9fafb; color:#374151; }
-        .input-group .form-control:focus ~ .btn { border-color:#22c55e; }
+        /* INPUT GROUP - Password */
+        .input-group .btn {
+            border:1px solid #d1c4e9; border-left:none;
+            background:white; padding:0 15px; border-radius:0 10px 10px 0;
+        }
 
-        .btn-register { background:#22c55e; color:white; border:none; font-weight:600; border-radius:8px; padding:13px; font-size:1rem; transition:all 0.3s; width:100%; margin-top:10px; }
-        .btn-register:hover { background:#16a34a; transform:translateY(-2px); box-shadow:0 4px 12px rgba(34,197,94,0.3); }
+        /* BUTTON */
+        .btn-register {
+            background:#a855f7;
+            color:white; font-weight:600;
+            border:none; border-radius:10px;
+            padding:13px; font-size:1rem;
+            transition:0.3s;
+        }
+        .btn-register:hover {
+            background:#9333ea; transform:translateY(-2px);
+            box-shadow:0 4px 14px rgba(168,85,247,0.35);
+        }
 
-        .login-link { text-align:center; margin-top:25px; color:#6b7280; font-size:0.9rem; }
-        .login-link a { color:#22c55e; text-decoration:none; font-weight:600; }
-        .login-link a:hover { color:#16a34a; text-decoration:underline; }
+        /* LINK */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-        .text-danger { font-size:0.85rem; margin-top:5px; }
+        .login-link a {
+            color: #6a0dad;          /* ungu utama */
+            text-decoration: none;   /* tidak underline */
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;  /* underline saat hover */
+            color: #4b0082;              /* ungu lebih gelap saat hover */
+        }
+
+        .text-danger { font-size:0.85rem; }
     </style>
 </head>
 <body>

@@ -34,7 +34,7 @@
             NAVBAR
         ====================================== */
         .navbar {
-            background: var(--purple-dark) !important;
+            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%) !important;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
 
@@ -144,7 +144,6 @@
 
         @else
             <div class="col-12 p-4 content-wrapper">
-                <h3 class="mb-3">{{ $title ?? 'Profil' }}</h3>
                 @yield('content')
             </div>
         @endif

@@ -371,7 +371,7 @@
 <!-- FOOTER (Opsional, untuk melengkapi tampilan modern) -->
 <footer class="bg-white mt-5 py-4 border-top">
     <div class="container text-center">
-        <p class="mb-0 text-muted">&copy; 2023 Berbagi. Semua hak dilindungi. Dibuat dengan ❤️ untuk berbagi kebaikan.</p>
+        <p class="mb-0 text-muted">&copy; 2025 Berbagi. Semua hak dilindungi. Dibuat untuk berbagi kebaikan.</p>
     </div>
 </footer>
 

@@ -19,7 +19,7 @@
 
         .left-side {
             width:50%;
-            background:linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            background:linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #ba55d3 100%);
             padding:80px 60px;
             color:white;
             display:flex;
@@ -47,8 +47,10 @@
             position:relative;
             overflow:hidden;
         }
-        .circle-decoration-1 { position:absolute; width:250px; height:250px; background:rgba(34,197,94,0.15); border-radius:50%; top:-100px; right:-100px; }
-        .circle-decoration-2 { position:absolute; width:180px; height:180px; background:rgba(34,197,94,0.1); border-radius:50%; top:20px; right:20px; }
+        
+        .circle-decoration-1, .circle-decoration-2 { position: absolute; border-radius: 50%; }
+        .circle-decoration-1 { width: 250px; height: 250px; background: rgba(138,43,226,0.15); top: -100px; right: -100px; }
+        .circle-decoration-2 { width: 180px; height: 180px; background: rgba(138,43,226,0.1); top: 20px; right: 20px; }
 
         .card-auth { width:450px; max-width:100%; position:relative; z-index:2; }
         .card-auth h3 { font-size:2rem; font-weight:600; color:#1f2937; margin-bottom:8px; text-align:center; }
@@ -64,12 +66,12 @@
         .input-group .btn:hover { background:#f9fafb; color:#374151; }
         .input-group .form-control:focus ~ .btn { border-color:#22c55e; }
 
-        .btn-action { background:#22c55e; color:white; border:none; font-weight:600; border-radius:8px; padding:13px; font-size:1rem; transition:all 0.3s; width:100%; margin-top:10px; }
-        .btn-action:hover { background:#16a34a; transform:translateY(-2px); box-shadow:0 4px 12px rgba(34,197,94,0.3); }
+        .btn-action { background:#6a0dad; color:white; border:none; font-weight:600; border-radius:8px; padding:13px; font-size:1rem; transition:all 0.3s; width:100%; margin-top:10px; }
+        .btn-action:hover { background:#8a2be2; transform:translateY(-2px); box-shadow:0 4px 12px rgba(34,197,94,0.3); }
 
         .link-login { text-align:center; margin-top:25px; color:#6b7280; font-size:0.9rem; }
-        .link-login a { color:#22c55e; text-decoration:none; font-weight:600; }
-        .link-login a:hover { color:#16a34a; text-decoration:underline; }
+        .link-login a { color:#6a0dad; text-decoration:none; font-weight:600; }
+        .link-login a:hover { color:#4b0082; text-decoration:underline; }
 
         .text-danger { font-size:0.85rem; margin-top:5px; }
     </style>
